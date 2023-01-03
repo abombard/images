@@ -7,19 +7,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
-
-let input = ref("");
-
 import axios from "axios";
 import { useItemStore } from "@/stores/items"
 
+let input = ref("");
+
+const hostname = "http://localhost:5174"
 const store = useItemStore();
 
 function search() {
   axios
-    .post(`http://localhost:8080/search`, { text: input.value })
+    .post(`{hostname}/search`, { text: input.value })
     .then(response => {
       console.log(response.data);
       store.$patch({ items: response.data.response.items });
