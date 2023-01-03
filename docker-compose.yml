@@ -1,0 +1,42 @@
+version: "3.6"
+services:
+  elasticsearch:
+    image: elasticsearch:8.5
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - target: 9200
+        published: 9200
+    networks:
+      - image-network
+
+  image-server:
+    image: image-server
+    container_name: image-server
+    ports:
+      - target: 9000
+        published: 9000
+    networks:
+      -  image-network
+
+  image-web:
+    image: image-web
+    container_name: image-web
+    ports:
+      - target: 5173
+        published: 5173
+    networks:
+      -  image-network
+
+volumes:
+  es_data:
+    driver: local
+
+networks:
+  image-network:
+    name: image-network
+    driver: bridge
