@@ -1,0 +1,15 @@
+{
+  "mappings": {
+    "properties": {
+      "vector": {
+        "type": "dense_vector",
+        "dims": 512,
+        "index": true,
+        "similarity": "cosine"
+      },
+      "link": {
+        "type": "text"
+      }
+    }
+  }
+}

@@ -39,7 +39,7 @@ func main() {
 			return
 		}
 
-		response, err := engine.Search(searchRequest)
+		response, err := engine.Search(c, searchRequest)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"message": err.Error(),
