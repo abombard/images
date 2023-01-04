@@ -1,7 +1,7 @@
-version: "3.6"
+version: "3.9"
 services:
   elasticsearch:
-    image: elasticsearch:8.5
+    image: elasticsearch:8.5.3
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
@@ -14,23 +14,33 @@ services:
     networks:
       - image-network
 
-  image-server:
-    image: image-server
-    container_name: image-server
-    ports:
-      - target: 9000
-        published: 9000
-    networks:
-      -  image-network
+        # images-server:
+        #   image: images-server:latest
+        #   container_name: images-server
+        #   ports:
+        #     - target: 8080
+        #       published: 5174
+        #   networks:
+        #     -  image-network
 
   image-web:
-    image: image-web
+    image: images-web:latest
     container_name: image-web
     ports:
-      - target: 5173
+      - target: 80
         published: 5173
     networks:
       -  image-network
+
+  image-server-py:
+    image: images-server-py:latest
+    container_name: image-server-py
+    ports:
+      - target: 5000
+        published: 5174
+    environment:
+      - FLASK_APP=server
+      - FLASK_ENV=development
 
 volumes:
   es_data:
