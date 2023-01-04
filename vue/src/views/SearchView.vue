@@ -19,7 +19,7 @@ const store = useItemStore();
 
 function search() {
   axios
-    .post(`{hostname}/search`, { text: input.value })
+    .post(`${hostname}/search`, { text: input.value }, {headers: {'Content-Type': 'application/json'} })
     .then(response => {
       console.log(response.data);
       store.$patch({ items: response.data.response.items });
