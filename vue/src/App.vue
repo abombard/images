@@ -1,27 +1,20 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import SearchBar from "./components/SearchBar.vue"
+import DownloadFile from "./components/DownloadFile.vue"
 </script>
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/search">Search</RouterLink>
-      </nav>
+    <div class="nav-left-elem-list">
+      <SearchBar class="nav-left-elem" />
+      <DownloadFile class="nav-left-elem" />
     </div>
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/search">Search</RouterLink>
+    </nav>
   </header>
 
   <RouterView />
@@ -29,64 +22,47 @@ import HelloWorld from "./components/HelloWorld.vue";
 
 <style scoped>
 header {
+  width: 100vw;
+  max-height: 80vh;
   line-height: 1.5;
-  max-height: 100vh;
+  z-index: 200;
+  background: var(--color-header-background);
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.nav-left-elem-list {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-left-elem {
+  padding: 1rem;
+  border-radius: 5px;
 }
 
 nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  text-align: right;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+  background: var(--color-header-nav-button-active);
 }
 
 nav a {
   display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  padding: 1rem;
+  border-left: 1px solid var(--color-header-nav-button-sep);
+  color: var(--color-header-text);
+}
+
+nav a:hover {
+  background: var(--color-header-nav-button-hover);
 }
 
 nav a:first-of-type {
   border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
 </style>

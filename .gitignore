@@ -1,5 +1,5 @@
 venv
 tmp
 __pycache__
-./vue/img/
-./vue/upload
+vue/img
+vue/upload
