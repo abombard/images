@@ -1,11 +1,13 @@
 import os
+import sys
 import json
 import requests
 
 from flask import Flask, request, redirect, flash
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from sentence_transformers import SentenceTransformer
+
+from clip import search_knn
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './tmp/upload'
@@ -33,7 +35,6 @@ def upload_file(file):
 
     return path
 
-@cross_origin()
 @app.route('/image', methods=['POST'])
 def image():
     if 'file' not in request.files:
@@ -46,27 +47,13 @@ def image():
 
 # search
 
-text_model = SentenceTransformer('sentence-transformers/clip-ViT-B-32-multilingual-v1')
-
-@cross_origin()
 @app.route('/search', methods=['POST'])
 def search():
     params = json.loads(request.data)
 
-    sentence = params.get('text') or ''
-    if sentence == '':
-        return 'empty request'
+    sentence = params.get('text')
+    image_path = params.get('image')
 
-    text_embeddings = text_model.encode(sentence)
+    path = f'../vue/upload/{image_path}'
 
-    res = requests.post('http://localhost:9000/clip/_search', {
-        'knn': {
-            'field': 'vector',
-            'k': 10,
-            'num_candidates': 100,
-            'query_vector': text_embeddings,
-        },
-        '_source': ['id', 'link'],
-    })
-
-    return str(res)
+    return search_knn(text=sentence, image_path=path, max_results=30)
