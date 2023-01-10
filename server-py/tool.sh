@@ -56,7 +56,7 @@ create_index() {
       "properties": {
         "vector": {
           "type": "dense_vector",
-          "dims": 512,
+          "dims": 256,
           "index": true,
           "similarity": "cosine"
         },

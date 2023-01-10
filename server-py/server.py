@@ -1,18 +1,18 @@
 import os
-import sys
 import json
-import requests
 
 from flask import Flask, request, redirect, flash
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
-from clip import search_knn
+from nlp import knn_search
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './tmp/upload'
 
 cors = CORS(app)
+
+model = 'groupvit'
 
 # ping
 
@@ -56,4 +56,4 @@ def search():
 
     path = f'../vue/upload/{image_path}'
 
-    return search_knn(text=sentence, image_path=path, max_results=30)
+    return knn_search(model, text=sentence, image_path=path, max_results=30)
