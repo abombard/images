@@ -27,9 +27,11 @@ header {
   line-height: 1.5;
   z-index: 200;
   background: var(--color-header-background);
-  font-size: 20px;
+  opacity: 0.8;
+  font-size: 25px;
   display: flex;
   justify-content: space-between;
+  height: 70px;
 }
 
 .nav-left-elem-list {

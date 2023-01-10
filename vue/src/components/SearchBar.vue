@@ -4,7 +4,7 @@
 
 <style scoped>
 input[type="text"] {
-  height: 2.5rem;
+  height: 3rem;
   width: 12rem;
   padding: 0.5rem 1rem;
   border: none;
@@ -14,7 +14,7 @@ input[type="text"] {
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { search } from "@/search.ts";
+import { search } from "@/search";
 
 let input = ref("");
 

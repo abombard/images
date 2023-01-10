@@ -29,8 +29,8 @@ const onFileChange = (event) => {
 }
 
 .file-btn {
+  height: 3rem;
   width: 12rem;
-  height: 2.5rem;
   background: var(--color-header-button);
   color: var(--color-header-text);
   padding: 0.5rem 1rem;
